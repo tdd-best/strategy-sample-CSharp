@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace replace_condition_logic_with_strategy
 {
@@ -27,17 +28,16 @@ namespace replace_condition_logic_with_strategy
     {
         public double ShippingFee(string shipper, Product product)
         {
-            switch (shipper)
-            {
-                case "black cat":
-                    return CalculateFeeByBlackCat(product);
-                case "hsinchu":
-                    return CalculateFeeByHsinchu(product);
-                case "post office":
-                    return CalculateFeeByPostOffice(product);
-                default:
-                    throw new ArgumentException("shipper not exist");
-            }
+            var shippingFeeFormulas = new Dictionary<string, Func<Product, double>>
+                                      {
+                                          {"black cat", CalculateFeeByBlackCat},
+                                          {"hsinchu", CalculateFeeByHsinchu},
+                                          {"post office", CalculateFeeByPostOffice},
+                                      };
+            
+            return shippingFeeFormulas.ContainsKey(shipper)
+                ? shippingFeeFormulas[shipper](product)
+                : throw new ArgumentException("shipper not exist");
         }
 
         private static double CalculateFeeByPostOffice(Product product)
