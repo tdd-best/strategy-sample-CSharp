@@ -35,7 +35,7 @@ namespace replace_condition_logic_with_strategy
             }
             else if (shipper.Equals("hsinchu"))
             {
-                double size = product.Length * product.Width * product.Height;
+                var size = Size(product);
                 if (product.Length > 100 || product.Width > 100 || product.Height > 100)
                 {
                     return size * 0.00002 * 1100 + 500;
@@ -56,6 +56,12 @@ namespace replace_condition_logic_with_strategy
             {
                 throw new ArgumentException("shipper not exist");
             }
+        }
+
+        private static double Size(Product product)
+        {
+            double size = product.Length * product.Width * product.Height;
+            return size;
         }
     }
 }
