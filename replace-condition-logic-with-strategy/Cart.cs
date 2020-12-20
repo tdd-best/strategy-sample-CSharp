@@ -27,21 +27,16 @@ namespace replace_condition_logic_with_strategy
     {
         public double ShippingFee(string shipper, Product product)
         {
-            if (shipper.Equals("black cat"))
+            switch (shipper)
             {
-                return CalculateFeeByBlackCat(product);
-            }
-            else if (shipper.Equals("hsinchu"))
-            {
-                return CalculateFeeByHsinchu(product);
-            }
-            else if (shipper.Equals("post office"))
-            {
-                return CalculateFeeByPostOffice(product);
-            }
-            else
-            {
-                throw new ArgumentException("shipper not exist");
+                case "black cat":
+                    return CalculateFeeByBlackCat(product);
+                case "hsinchu":
+                    return CalculateFeeByHsinchu(product);
+                case "post office":
+                    return CalculateFeeByPostOffice(product);
+                default:
+                    throw new ArgumentException("shipper not exist");
             }
         }
 
