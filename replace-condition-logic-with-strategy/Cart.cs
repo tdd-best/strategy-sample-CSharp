@@ -26,17 +26,17 @@ namespace replace_condition_logic_with_strategy
 
     public class Cart
     {
+        private readonly Dictionary<string, Func<Product, double>> _shippingFeeFormulas = new Dictionary<string, Func<Product, double>>
+                                                                                          {
+                                                                                              {"black cat", CalculateFeeByBlackCat},
+                                                                                              {"hsinchu", CalculateFeeByHsinchu},
+                                                                                              {"post office", CalculateFeeByPostOffice},
+                                                                                          };
+
         public double ShippingFee(string shipper, Product product)
         {
-            var shippingFeeFormulas = new Dictionary<string, Func<Product, double>>
-                                      {
-                                          {"black cat", CalculateFeeByBlackCat},
-                                          {"hsinchu", CalculateFeeByHsinchu},
-                                          {"post office", CalculateFeeByPostOffice},
-                                      };
-            
-            return shippingFeeFormulas.ContainsKey(shipper)
-                ? shippingFeeFormulas[shipper](product)
+            return _shippingFeeFormulas.ContainsKey(shipper)
+                ? _shippingFeeFormulas[shipper](product)
                 : throw new ArgumentException("shipper not exist");
         }
 
