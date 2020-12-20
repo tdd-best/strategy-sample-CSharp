@@ -33,14 +33,7 @@ namespace replace_condition_logic_with_strategy
             }
             else if (shipper.Equals("hsinchu"))
             {
-                if (product.Length > 100 || product.Width > 100 || product.Height > 100)
-                {
-                    return product.Size() * 0.00002 * 1100 + 500;
-                }
-                else
-                {
-                    return product.Size() * 0.00002 * 1200;
-                }
+                return CalculateFeeByHsinchu(product);
             }
             else if (shipper.Equals("post office"))
             {
@@ -52,6 +45,18 @@ namespace replace_condition_logic_with_strategy
             else
             {
                 throw new ArgumentException("shipper not exist");
+            }
+        }
+
+        private static double CalculateFeeByHsinchu(Product product)
+        {
+            if (product.Length > 100 || product.Width > 100 || product.Height > 100)
+            {
+                return product.Size() * 0.00002 * 1100 + 500;
+            }
+            else
+            {
+                return product.Size() * 0.00002 * 1200;
             }
         }
 
