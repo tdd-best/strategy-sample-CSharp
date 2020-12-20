@@ -29,14 +29,7 @@ namespace replace_condition_logic_with_strategy
         {
             if (shipper.Equals("black cat"))
             {
-                if (product.Weight > 20)
-                {
-                    return 500;
-                }
-                else
-                {
-                    return 100 + product.Weight * 10;
-                }
+                return CalculateFeeByBlackCat(product);
             }
             else if (shipper.Equals("hsinchu"))
             {
@@ -59,6 +52,18 @@ namespace replace_condition_logic_with_strategy
             else
             {
                 throw new ArgumentException("shipper not exist");
+            }
+        }
+
+        private static double CalculateFeeByBlackCat(Product product)
+        {
+            if (product.Weight > 20)
+            {
+                return 500;
+            }
+            else
+            {
+                return 100 + product.Weight * 10;
             }
         }
     }
